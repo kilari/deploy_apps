@@ -1,35 +1,39 @@
 #If you don't pass the parameters from the command line these will be taken.If passed from the command
 #line they will be taken and these are ignored.
 
+#For the setup_cap command no paramters are passed command line. The paramters need to be placed here.
+#The two ** paramters are compulsory
+
+
 ##Connection Parameters
-:cpanel_user: kilari
-:cpanel_pass: xnfd.F]Rcf_X
-:connection_addr: fuji.kilari.co.in  ##IP or the domain name if pointing to the server
+:cpanel_user: 
+:cpanel_pass: 
+:connection_addr:      ##IP or the domain name if pointing to the server
 
 ##Database credentials
-:db_name: kilari_radiant20 #redmine0   ##Defaults to apps_name + a random number  
-:db_type: #mysql   ##Database type mysql/psql defaults to mysql
-:db_user: #redmin    ##Defaults to the db_name
-:db_pass: #red11  ##A random password  
+:db_name:              ##Defaults to apps_name + a random number  
+:db_type:              ##Database type mysql/psql defaults to mysql
+:db_user:              ##Defaults to the db_name
+:db_pass:              ##A random password  
 
 ##Used for adding a sub domain
 :sub_domain:
 :root_domain:
 
 #Deployment Parameters
-:domain: #red.fuji.kilari.co.in ##**
-:doc_root:              ## Defaults to /home/cpanel_username/domain_name/apps_name/current/public
-:app_name: #redmine  ##**
-:scm_type: #git   ##Version control type svn/git defaults to git
-:co_url: #git://kilari.gitrepo.com/kilari/redmine.git   ##** Checkout/Clone URL
-:deploy_path:   ## Defaults to /home/cpanel_username/domain_name/apps_name
-:cap_dir: ##Defaults to  /home/#{(`whoami`).chomp}/deploy/apps_name        /home/kilari/dev/redmine
-:env:  ##Defaults to production
-:server_type:   ##Defaults to passenger
+:domain:                ##**
+:doc_root:              ## Defaults to /home/cpanel_username/domain_name/apps_name/public
+:app_name:              ##**
+:scm_type:              ##Version control type svn/git defaults to git
+:co_url:                ##** Checkout/Clone URL
+:deploy_path:           ## Defaults to /home/cpanel_username/domain_name/apps_name
+:cap_dir:               ##Defaults to /home/#{(`whoami`).chomp}/deploy/apps_name 
+:env:                   ##Defaults to production
+:server_type:           ##Defaults to passenger
 
 ##Repository username/pass
-:repo_user: qw
-:repo_pass: qw
+:repo_user: 
+:repo_pass: 
 
 
 
