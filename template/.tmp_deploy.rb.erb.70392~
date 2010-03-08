@@ -1,0 +1,51 @@
+set :ip_address, <%= options[: ] %>
+set :scm, <%= options[:scm_type] %>
+set :application, <%= options[: ] %>
+set :repository,  <%= options[: ] %>
+          
+          if (deployment.scm_branch != nil)
+set :branch <%= options[: ] %>
+          end
+          
+          if (deployment.git_enable_submodules == 1)
+set :git_enable_submodules, 1
+          end     
+set :user,  <%= options[: ] %>
+set :password,  <%= options[: ] %>
+set :deploy_to, <%= options[: ] %>
+set :deploy_via, :remote_cache
+set :shared_directory, <%= options[: ] %>
+set :use_sudo, false
+set :group_writable, false
+default_run_options[:pty] = true
+role :app, ip_address
+role :web, ip_address
+role :db,  ip_address, :primary => true
+task :after_update_code, :roles => [:web, :db, :app] do
+begin
+  run "rm -f #{release_path}/config/database.yml"
+rescue Exception => error
+end
+begin
+  run "rm -f #{release_path}/public/.htaccess"
+rescue Exception => error
+end
+run "ln -s #{shared_directory}/database.yml #{release_path}/config/database.yml"
+run "ln -s #{shared_directory}/.htaccess #{release_path}/public/.htaccess"
+end
+namespace :deploy do
+  desc "restart passenger"
+  task :restart do
+    passenger::restart
+  end
+  [:start, :stop].each do |t|
+    desc "#{t} task is a no-op with mod_rails"
+    task t, :roles => :app do ; end
+  end
+end
+namespace :passenger do'   
+  desc "Restart passenger"
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+end 

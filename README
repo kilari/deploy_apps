@@ -1,0 +1,15 @@
+USAGE!!!
+
+
+base.rb --help
+This will list the available commands.
+
+base.rb COMMAND --help
+This will list the available options for his COMMAND.
+
+Basic usage is: base.rb COMMAND OPTIONS
+
+You can pass OPTIONS on command line or just put then in a setting.yml file in the same folder where you are running the command and pass a option -f and theoptions will be taken from that file.
+
+The options your pass from the command line will have priority than the one specified in the setting.yml file
+

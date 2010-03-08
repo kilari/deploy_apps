@@ -1,0 +1,31 @@
+#If you don't pass the parameters from the command line these will be taken.If passed from the command
+#line they will be taken and these are ignored.
+
+##Connection Parameters
+:cpanel_user: 
+:cpanel_pass: 
+:connection_addr:   ##IP or the domain name if pointing to the server
+
+##Database credentials
+:db_name: 
+:db_type:    ##Database type mysql/psql defaults to mysql
+:db_user: 
+:db_pass: 
+
+
+#Deployment Parameters
+:domain: 
+:ftp_user: 
+:ftp_pass: 
+:app_name: 
+:scm_type:    ##Version control type svn/git defaults to git
+:co_url:    ##Checkout/Clone URL
+:deploy_path: 
+:cap_dir: 
+
+##Repository username/pass
+:repo_user: 
+:repo_pass: 
+
+
+

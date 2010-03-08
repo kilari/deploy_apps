@@ -1,0 +1,42 @@
+set :user,  <%= @options[:cpanel_user ] %>
+set :password,  "<%= @options[:cpanel_pass ] %>"
+set :scm, "<%= @options[:scm_type] %>"
+<%if @options[:scm_type] == 'svn' %>
+set :scm_username, "<%= @options[:repo_user]%>"
+set :scm_password, "<% @options[:repo_pass]%>"
+<%end%>
+set :ip_address, "<%= @options[:connection_addr ] %>"
+set :application, "<%= @options[:app_name ] %>"
+set :repository,  "<%= @options[:co_url ] %>"
+          
+set :deploy_to, <%= @options[:deploy_path ] %>
+<%if @options[:scm_type] == 'git'%>
+set :deploy_via, :remote_cache
+<%end%>
+
+set :use_sudo, false
+set :group_writable, false
+default_run_options[:pty] = true
+role :app, ip_address
+role :web, ip_address
+role :db,  ip_address, :primary => true
+task :after_update_code, :roles => [:web, :db, :app] do
+run "chmod 755 #{release_path}/public"
+run "rm -f #{release_path}/public/.htaccess"
+end
+namespace :deploy do
+  desc "restart passenger"
+  task :restart do
+    passenger::restart
+  end
+  [:start, :stop].each do |t|
+    desc "#{t} task is a no-op with mod_rails"
+    task t, :roles => :app do ; end
+  end
+end
+namespace :passenger do'   
+  desc "Restart passenger"
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+end 
