@@ -3,7 +3,7 @@ module Deploy
     
     def initialize(usage)
       @options = {}
-      abort "No settings files found in the current directory." unless OPTIONS
+      abort "No settings files found in the current directory. Pass -g option to generate a settings.yml." unless OPTIONS
       OPTIONS.each do |k,v|
         @options[:"#{k}"] = "#{v}" unless v.nil?
       end
@@ -39,7 +39,13 @@ module Deploy
       if File.directory?(@options[:cap_dir])
         if File.exists?(@options[:cap_dir] + '/config/environment.rb')
           if system("capify #{@options[:cap_dir]}")
-            puts "Capifyed the application, now cap deploy:setup then cap deploy"
+            puts "****************************************************************"
+            puts "*Capifyed the application, now cap deploy:setup then cap deploy*"
+            puts "****************************************************************\n"
+            fix_doc_root
+            puts_db_details
+            puts_deploy_file
+            add_deploy_file
           else
             puts "Could not find capify command!"
           end
@@ -111,7 +117,7 @@ module Deploy
       puts "*DATBASE setting for database.yml*"
       puts "**********************************"
       puts @db_details
-      puts "**********************************"
+      puts "**********************************\n"
     end
     
     def puts_deploy_file
@@ -121,7 +127,7 @@ module Deploy
       puts "*                       deploy.rb file                       *"
       puts "**************************************************************"
       puts @deploy_file
-      puts "**************************************************************"
+      puts "**************************************************************\n"
     end
     
     def add_deploy_file
@@ -136,10 +142,6 @@ module Deploy
      check_db 
      check_db_user 
      check_local_doc_root  
-     fix_doc_root
-     puts_db_details
-     puts_deploy_file
-     add_deploy_file
     end
     
     def askq

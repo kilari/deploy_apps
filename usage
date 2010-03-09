@@ -2,7 +2,7 @@ For creating database and adding domains
 ./base.rb --help
 
 
-For deploying:
+For setting up capistrano for a rails app:
 ./base.rb setup_cap
 
 
@@ -15,7 +15,7 @@ user is already present it will reset its pass.
 Now it will check **cap_dir** paramter and will see if the apps is present in that directory, else
 it will check out/clone the apps from the repository url taking it from **co_url** parameter.
 
-Now it will capify this apps.
+Now it will capify this apps and add a deploy.rb to the apps which will be used for deploying
 
 Now we will need to run the below commands from the cap_dir directory.
 1)cap deploy:setup

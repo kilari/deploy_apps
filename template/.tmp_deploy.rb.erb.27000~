@@ -1,9 +1,9 @@
 set :user,  "<%= @options[:cpanel_user ] %>"
 set :password,  "<%= @options[:cpanel_pass ] %>"
-set :scm, "<%= @options[:scm_type]=='svn'? 'subversion':'git' %>"
+set :scm, "<%= @options[:scm_type] %>"
 <%if @options[:scm_type] == 'svn' %>
 set :scm_username, "<%= @options[:repo_user]%>"
-set :scm_password, "<%= @options[:repo_pass]%>"
+set :scm_password, "<% @options[:repo_pass]%>"
 <%end%>
 set :ip_address, "<%= @options[:connection_addr ] %>"
 set :application, "<%= @options[:app_name ] %>"
