@@ -13,7 +13,7 @@
 ##Database credentials
 :db_name:              ##Defaults to apps_name + a random number for +setup_cap+ 
 :db_type:              ##Database type mysql/psql defaults to mysql
-:db_user:              ##Defaults to the db_name for +setup_cap+
+:db_user:              ##Defaults to the first four chars of the db name plus a four random numbers +setup_cap+
 :db_pass:              ##A random password  
 
 ##Used for adding a sub domain

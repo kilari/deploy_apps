@@ -39,13 +39,13 @@ module Deploy
       if File.directory?(@options[:cap_dir])
         if File.exists?(@options[:cap_dir] + '/config/environment.rb')
           if system("capify #{@options[:cap_dir]}")
-            puts "****************************************************************"
-            puts "*Capifyed the application, now cap deploy:setup then cap deploy*"
-            puts "****************************************************************\n"
             fix_doc_root
             puts_db_details
             puts_deploy_file
             add_deploy_file
+            puts "*********************************************************************************************************************"
+            puts "*Capifyed the application at #{@options[:cap_dir]}, now \'cap deploy:setup\' then \'cap deploy\' from that directory*"
+            puts "*********************************************************************************************************************\n"
           else
             puts "Could not find capify command!"
           end
@@ -97,7 +97,7 @@ module Deploy
     end
     
     def check_db_user
-      @options[:db_user] ||= (@options[:db_name].size>7? @options[:db_name][0,6]:@options[:db_name])
+      @options[:db_user] ||= @options[:db_name][0,3] + "#{rand(999)}"
       @options[:db_pass] ||= Deploy.random(10)
       reply = @cpanel_api.add_db_user(@options)
       @options[:f_db_user] = reply[:user]
