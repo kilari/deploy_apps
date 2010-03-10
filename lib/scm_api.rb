@@ -6,7 +6,6 @@ module SvnAPI
   
 end
 
-
 module GitAPI
   
   def self.check_out(options)

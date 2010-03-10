@@ -6,11 +6,11 @@ module Deploy
       @options = options
       if @options[:file]
         OPTIONS.each do |k,v|
-          instance_variable_set("@#{k}", "#{v}") unless v.nil?
-          @options[:cpanel_user] ||= @cpanel_user
-          @options[:cpanel_pass] ||= @cpanel_pass
-          @options[:connection_addr] ||= @connection_addr
+          instance_variable_set("@#{k}", v) if v
         end
+        @options[:cpanel_user] ||= @cpanel_user
+        @options[:cpanel_pass] ||= @cpanel_pass
+        @options[:connection_addr] ||= @connection_addr
       end
       @cpanel_api = CpanelDeployApi::Base.new(@options[:cpanel_user],@options[:cpanel_pass],@options[:connection_addr],usage)
     end

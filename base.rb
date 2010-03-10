@@ -13,7 +13,6 @@ require 'ruby-debug'
 module Deploy
   
   OPTIONS = YAML.load_file('settings.yml') rescue nil
-  #debugger
   class Base
     
     COMMANDS = %W{add_db\n add_db_user\n list_dbs\n list_users\n del_db\n del_user\n
