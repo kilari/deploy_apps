@@ -116,6 +116,6 @@ More help using #{$0} COMMAND --help}
     pass
   end
 
-end   
+end
 
 Deploy::Base.dispatch_user_input

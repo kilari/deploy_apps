@@ -23,20 +23,23 @@ role :db,  ip_address, :primary => true
 task :after_update_code, :roles => [:web, :db, :app] do
 run "chmod 755 #{release_path}/public"
 run "rm -f #{release_path}/public/.htaccess"
+run "cd #{release_path} && rake db:migrate RAILS_ENV=<%=@options[:env]%>"
 <% if @fix %> 
 run "<%= @fix %>"
 run "<%= @fix1 %>"
 <% end %>
+<% if @db_details %>
 db_config = ERB.new <<-EOF
 <%=@db_details %>
 EOF
 put db_config.result, "#{release_path}/config/database.yml"
+<% end %>
+<% if @options[:serer_type] == :passenger %>
 passenger_settings=ERB.new <<-EOF
 RailsBaseURI /
 PassengerAppRoot <%=@options[:deploy_path]%>/current
 EOF
 put passenger_settings.result, "#{release_path}/public/.htaccess"
-run "cd #{release_path} && rake db:migrate RAILS_ENV=<%=@options[:env]%>"
 end
 namespace :deploy do
   desc "restart passenger"
@@ -53,4 +56,9 @@ namespace :passenger do
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
   end
-end 
+end
+<% elsif @options[:serer_type] == :mongrel %>
+
+<% else %>
+end
+<% end %> 

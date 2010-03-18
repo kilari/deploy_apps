@@ -51,12 +51,12 @@ module CpanelDeployApi
     end
   
     def list_dbs(db_type)
-      set_db_type(options[:db_type])
+      set_db_type(db_type)
       @cpanel.list_dbs
     end
   
     def list_users(db_type)
-      set_db_type(options[:db_type])
+      set_db_type(db_type)
       @cpanel.list_db_users
     end
   
@@ -70,13 +70,13 @@ module CpanelDeployApi
       @cpanel.is_user?(options[:db_user])
     end
   
-    def del_db(options)#[:db_name],options[:db_type])
+    def del_db(options)
       abort "Database name not passed.\n#{@usage}" unless options[:db_name]
       set_db_type(options[:db_type])
       @cpanel.del_db(options[:db_name])
     end
   
-    def del_user(options)#[:db_user],options[:db_type])
+    def del_user(options)
       abort "Database User not passed\n#{@usage}" unless options[:db_user]
       set_db_type(options[:db_type])
       @cpanel.del_user(options[:db_user])
@@ -84,6 +84,10 @@ module CpanelDeployApi
     
     def set_db_type(db_type)
       @cpanel.db_type=db_type
+    end
+    
+    def add_cpanel_user_name(name)
+      @cpanel.send(:add_cpanel_user_name,name)
     end
     
     def list_domains
@@ -107,7 +111,7 @@ module CpanelDeployApi
       unless options[:doc_root]
         @reply = @cpanel.add_addon_domain(options[:domain])
       else
-        @reply = @cpanel.add_addon_domain(options[:domain],options[:doc_root])#,options[:ftp_user],options[:ftp_pass])
+        @reply = @cpanel.add_addon_domain(options[:domain],options[:doc_root])
       end  
       puts @reply[:status] +"\t"+ @reply[:message]
     end

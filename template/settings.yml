@@ -30,6 +30,7 @@
 :cap_dir:               ##Defaults to /home/#{(`whoami`).chomp}/deploy/apps_name 
 :env:                   ##Defaults to production
 :server_type:           ##Defaults to passenger
+:mongrel_ports: 234
 
 ##Repository username/pass
 :repo_user: 
