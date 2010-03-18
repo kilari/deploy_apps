@@ -1,7 +1,0 @@
-<%=@options[:env]%>:
-  adapter: <%= @options[:db_type] == 'mysql'? 'mysql':'postgresql'%>
-  host: localhost
-  database: <%= @options[:f_db_name]%>
-  username: <%= @options[:f_db_user]%>
-  password: <%= @options[:db_pass]%> 
-  
